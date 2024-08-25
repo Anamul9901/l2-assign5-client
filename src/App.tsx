@@ -1,9 +1,13 @@
+import { Outlet } from "react-router-dom";
+import Navber from "./components/Navber/Navber";
 
 function App() {
-
   return (
-   <div>Hello</div>
-  )
+    <div>
+      <Navber />
+      <Outlet />
+    </div>
+  );
 }
 
-export default App
+export default App;
