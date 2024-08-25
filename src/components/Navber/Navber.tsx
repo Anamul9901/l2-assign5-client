@@ -1,15 +1,35 @@
 import { Link, NavLink } from "react-router-dom";
 import { BsCartCheck } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { logout, selectCurrentUser } from "../../redux/features/auth/authSlice";
+import Swal from "sweetalert2";
 
 const Navber = () => {
-  //   const dispatch = useAppDispatch();
-  //   const user = useAppSelector(selectCurrentUser);
-  // console.log(user);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectCurrentUser);
+  console.log(user);
 
-  //   const handleLogout = () => {
-  //     dispatch(logout());
-  //   };
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you want to Sign Out",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Sign Out!",
+          text: "Your are not login.",
+          icon: "success",
+        });
+        dispatch(logout());
+      }
+    });
+  };
   const navitem = (
     <>
       <li>
@@ -38,40 +58,26 @@ const Navber = () => {
               : "lg:text-white text-[#09962f] font-bold md:text-xl"
           }
         >
-          Products
+          aaaaa
         </NavLink>
       </li>
 
-      <li>
-        <NavLink
-          to="/add-product"
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "pending"
-              : isActive
-              ? "text-[#050506] underline font-black md:text-xl "
-              : "lg:text-white text-[#09962f] font-bold md:text-xl"
-          }
-        >
-          Add-Product
-        </NavLink>
-      </li>
-      {/* {user && ( */}
-      <li>
-        <NavLink
-          to="/pay-history"
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "pending"
-              : isActive
-              ? "text-[#050506] underline font-black md:text-xl "
-              : "lg:text-white text-[#09962f] font-bold md:text-xl"
-          }
-        >
-          Ordered
-        </NavLink>
-      </li>
-      {/* )} */}
+      {user && (
+        <li>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive, isPending }) =>
+              isPending
+                ? "pending"
+                : isActive
+                ? "text-[#050506] underline font-black md:text-xl "
+                : "lg:text-white text-[#09962f] font-bold md:text-xl"
+            }
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
     </>
   );
   return (
@@ -123,41 +129,41 @@ const Navber = () => {
                 <BsCartCheck />
               </Link>
             </div>
-            {/* {user ? ( */}
-            <div className="flex items-center">
-              <div className="flex flex-row-reverse items-center">
-                <div>
-                  <label
-                    tabIndex={0}
-                    className="btn btn-ghost btn-circle avatar"
-                  >
-                    <div className="w-10 rounded-full">
-                      <img
-                        src="https://i.ibb.co/bd741Kc/pngwing-com-46.png"
-                        alt=""
-                      />
-                    </div>
-                  </label>
+            {user ? (
+              <div className="flex items-center">
+                <div className="flex flex-row-reverse items-center">
+                  <div>
+                    <label
+                      tabIndex={0}
+                      className="btn btn-ghost btn-circle avatar"
+                    >
+                      <div className="w-10 rounded-full">
+                        <img
+                          src="https://i.ibb.co/bd741Kc/pngwing-com-46.png"
+                          alt=""
+                        />
+                      </div>
+                    </label>
+                  </div>
+                  <div className="">
+                    <span className="text-xs md:text-lg font-bold">
+                      {/* <h1>{user ? user?.name : "No Name"}</h1> */}
+                    </span>
+                  </div>
                 </div>
-                <div className="">
-                  <span className="text-xs md:text-lg font-bold">
-                    {/* <h1>{user ? user?.name : "No Name"}</h1> */}
-                  </span>
-                </div>
+                <button onClick={handleLogout} className=" ">
+                  <h1 className="text-2xl hover:text-3xl">
+                    <FiLogOut />
+                  </h1>
+                </button>
               </div>
-              <button className=" ">
-                <h1 className="text-2xl hover:text-3xl">
-                  <FiLogOut />
-                </h1>
-              </button>
-            </div>
-            {/* ) : ( */}
-            <Link to="/login">
-              <button className="btn btn-sm bg-white hover:text-[#080403] text-black font-bold">
-                Log In
-              </button>
-            </Link>
-            {/* )} */}
+            ) : (
+              <Link to="/login">
+                <button className="btn btn-sm bg-white hover:text-[#080403] text-black font-bold">
+                  Log In
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
