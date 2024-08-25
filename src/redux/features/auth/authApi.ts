@@ -4,7 +4,6 @@ const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getUser: builder.query({
       query: (data) => {
-        console.log("email----", data);
         return {
           url: `/auth/user/${data.email}`,
           method: "GET",

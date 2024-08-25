@@ -65,7 +65,7 @@ const Navber = () => {
       {user && (
         <li>
           <NavLink
-            to="/dashboard"
+            to="/dashboard/home"
             className={({ isActive, isPending }) =>
               isPending
                 ? "pending"

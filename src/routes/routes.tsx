@@ -5,6 +5,7 @@ import Login from "../pages/Auth/Login";
 import Register from "./Register";
 import Dashboard from "../Layout/Dashboard";
 import DashHome from "../pages/Dashboard/DashHome";
+import MyBookings from "../pages/Dashboard/MyBookings/MyBookings";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +25,12 @@ const router = createBrowserRouter([
     element: <Dashboard />,
     children: [
       {
-        path: "/dashboard",
+        path: "/dashboard/home",
         element: <DashHome />,
+      },
+      {
+        path: "my-bookings",
+        element: <MyBookings />,
       },
     ],
   },

@@ -1,5 +1,5 @@
 import { BsGraphUpArrow } from "react-icons/bs";
-import { FaIdCard, FaProductHunt } from "react-icons/fa";
+import { FaProductHunt } from "react-icons/fa";
 import { FaHouseMedicalFlag, FaUsersGear } from "react-icons/fa6";
 import { IoIosLogOut } from "react-icons/io";
 import { MdManageAccounts } from "react-icons/md";
@@ -7,8 +7,8 @@ import { RxDashboard } from "react-icons/rx";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 const Sidebar = () => {
-    const isModarator = true;
-    const isAdmin = false;
+  const isModarator = true;
+  const isAdmin = false;
   return (
     <div>
       <div className="flex max-w-[1300px] mx-auto w-full">
@@ -16,51 +16,67 @@ const Sidebar = () => {
         <div className="w-64 pt-6 min-h-screen bg-[#f76b00] text-white">
           {isModarator && (
             <ul className="menu">
-              <Link to="/dashboard">
+              <Link to="/dashboard/home">
                 <div className="flex items-center gap-2 justify-center mb-2">
                   <img
                     className="w-[15%] rounded mb-5"
                     // src={filterUser?.[0]?.shopLogo}
                     alt=""
                   />
-                  <h2 className="text-center font-bold">
-                    Name
-                  </h2>
+                  <h2 className="text-center font-bold">Name</h2>
                 </div>
               </Link>
               <hr className="my-4 mx-2" />
 
               <li>
-                <NavLink to="/dashboard">
-                <RxDashboard />
+                <NavLink
+                  to="/dashboard/home"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#050506] underline font-black"
+                      : "lg:text-white "
+                  }
+                >
+                  <RxDashboard />
                   Dashboard
                 </NavLink>
               </li>
 
-              {/* <li>
-                            <NavLink to="adminHome">
-                                <FaHouseMedicalFlag />
-                                Menu</NavLink>
-                        </li> */}
               <li>
-                <NavLink to="sales-product">
+                <NavLink
+                  to="my-bookings"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#050506] underline font-black"
+                      : "lg:text-white "
+                  }
+                >
                   <FaProductHunt />
-                  Sale Products
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="sales-count">
-                  <BsGraphUpArrow />
-                  Sales Count
+                  My Bookings
                 </NavLink>
               </li>
 
-              <li>
-                <NavLink to="subscription">
-                  <FaIdCard />
-                  Subscription{" "}
+              {/* admin sidebar*/}
+              {/* <li>
+                <NavLink
+                  to="my-bookings"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#050506] underline font-black"
+                      : "lg:text-white text-[#09962f]"
+                  }
+                >
+                  <FaProductHunt />
+                  My Bookings
                 </NavLink>
-              </li>
+              </li> */}
+
               <hr className="my-4 mx-2" />
               <li>
                 <NavLink to="/">
@@ -117,7 +133,7 @@ const Sidebar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink  to="/dashboard/adminHome">
+                <NavLink to="/dashboard/adminHome">
                   <IoIosLogOut />
                   Log-Out
                 </NavLink>
