@@ -9,6 +9,7 @@ import MyBookings from "../pages/Dashboard/MyBookings/MyBookings";
 import FacilityManagement from "../pages/Dashboard/FacilityManagement/FacilityManagement";
 import SingleFacility from "../pages/Dashboard/FacilityManagement/SingleFacility";
 import BookingManagement from "../pages/Dashboard/BookingManagement/BookingManagement";
+import AddAdmin from "../pages/Dashboard/AddAdmin/AddAdmin";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "booking-management",
         element: <BookingManagement />,
+      },
+      {
+        path: "add-admin",
+        element: <AddAdmin />,
       },
     ],
   },
