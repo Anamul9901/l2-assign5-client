@@ -27,7 +27,6 @@ const FacilityManagement = () => {
       (item: any) => item?._id == id
     );
     setUpdatableFacility(filterUpdatedFacility);
-    console.log(id);
     setUpdatableId(id);
   };
   const handleUpdateFacility = async (e: any) => {
@@ -67,10 +66,8 @@ const FacilityManagement = () => {
       });
     }
   };
-  console.log(updatableFacility);
 
   const handleDeleteFacility = (id: string) => {
-    console.log(id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -79,15 +76,22 @@ const FacilityManagement = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "This Facility has been deleted.",
-          icon: "success",
-        });
-        const res = deleteFacility(id);
-        console.log(res);
+        const res = await deleteFacility(id);
+        if (res?.data?.success) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "This Facility has been deleted.",
+            icon: "success",
+          });
+        } else {
+          Swal.fire({
+            title: "Sorry!",
+            text: "Something want wrong.",
+            icon: "error",
+          });
+        }
       }
     });
   };

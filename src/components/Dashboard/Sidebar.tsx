@@ -77,6 +77,22 @@ const Sidebar = () => {
                 </NavLink>
               </li>
 
+              <li>
+                <NavLink
+                  to="booking-management"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#050506] underline font-black"
+                      : "lg:text-white"
+                  }
+                >
+                  <FaProductHunt />
+                  Booking Management
+                </NavLink>
+              </li>
+
               <hr className="my-4 mx-2" />
               <li>
                 <NavLink to="/">

@@ -1,16 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MdCancel } from "react-icons/md";
-import {
-  useCancelBookingMutation,
-  useGetSingleBookingQuery,
-} from "../../../redux/features/bookings/bookingsApi";
+import { useGetAllBookingQuery } from "../../../redux/features/bookings/bookingsApi";
 import { CiViewList } from "react-icons/ci";
-import { TbClockCancel } from "react-icons/tb";
 import { useState } from "react";
 
-const MyBookings = () => {
-  const { data: getSingleBooking } = useGetSingleBookingQuery(undefined);
-  const [cancelBooking] = useCancelBookingMutation();
+const BookingManagement = () => {
+  const { data: getSingleBooking } = useGetAllBookingQuery(undefined);
   const [modalData, setModalData] = useState([]);
 
   const handleShowDetails = (id: string) => {
@@ -20,9 +14,6 @@ const MyBookings = () => {
     setModalData(filterData);
   };
 
-  const handleCancel = async (id: string) => {
-    const res = await cancelBooking(id);
-  };
   return (
     <div>
       <div className="overflow-x-auto">
@@ -34,7 +25,7 @@ const MyBookings = () => {
               <th>Facility Name</th>
               <th>Date</th>
               <th>Start Time</th>
-              <th>Action</th>
+              <th>Details</th>
             </tr>
           </thead>
           <tbody>
@@ -107,18 +98,6 @@ const MyBookings = () => {
                       </div>
                     </dialog>
                     {/* modal end */}
-                    {item?.isBooked == "canceled" ? (
-                      <button className="text-xl text-red-500">
-                        <MdCancel />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleCancel(item?._id)}
-                        className="text-xl text-green-500"
-                      >
-                        <TbClockCancel />
-                      </button>
-                    )}
                   </div>
                 </td>
               </tr>
@@ -130,4 +109,4 @@ const MyBookings = () => {
   );
 };
 
-export default MyBookings;
+export default BookingManagement;

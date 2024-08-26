@@ -8,6 +8,7 @@ import DashHome from "../pages/Dashboard/DashHome";
 import MyBookings from "../pages/Dashboard/MyBookings/MyBookings";
 import FacilityManagement from "../pages/Dashboard/FacilityManagement/FacilityManagement";
 import SingleFacility from "../pages/Dashboard/FacilityManagement/SingleFacility";
+import BookingManagement from "../pages/Dashboard/BookingManagement/BookingManagement";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "single-facility/:id",
         element: <SingleFacility />,
+      },
+      {
+        path: "booking-management",
+        element: <BookingManagement />,
       },
     ],
   },
