@@ -3,16 +3,42 @@ import { CiViewList } from "react-icons/ci";
 
 import {
   useCreateFacilityMutation,
+  useDeleteFacilityMutation,
   useGetAllFacilityQuery,
 } from "../../../redux/features/facilitys/facilityApi";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AiFillDelete } from "react-icons/ai";
 
 const FacilityManagement = () => {
   const { data: getAllFacility } = useGetAllFacilityQuery(undefined);
-  const [addFacility, { error }] = useCreateFacilityMutation();
-  console.log("add error", error);
+  const [addFacility] = useCreateFacilityMutation();
+  const [deleteFacility] = useDeleteFacilityMutation();
+  console.log(getAllFacility?.data);
+
+  const handleDeleteFacility = (id: string) => {
+    console.log(id);
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "This Facility has been deleted.",
+            icon: "success"
+        });
+        const res = deleteFacility(id);
+        console.log(res);
+        }
+      });
+  };
 
   const handleAddFacility = async (e: any) => {
     e.preventDefault();
@@ -30,10 +56,8 @@ const FacilityManagement = () => {
       image,
       description,
     };
-    console.log(addFacilityData);
 
     const res = await addFacility(addFacilityData);
-    console.log(res);
     if (res?.data?.success === true) {
       Swal.fire({
         position: "top-end",
@@ -44,7 +68,6 @@ const FacilityManagement = () => {
       });
     }
     if (res.error) {
-      console.log((res as any)?.error?.data?.messaage);
       Swal.fire({
         position: "top-end",
         icon: "error",
@@ -147,24 +170,32 @@ const FacilityManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {getAllFacility?.data?.map((item: any, idx: number) => (
-              <tr key={item?._id}>
-                <th>{idx + 1}</th>
-                <td>{item?.name}</td>
-                <td>{item?.pricePerHour}</td>
-                <td>{moment(new Date(item?.createdAt)).format("Y-MM-DD")}</td>
-                <td>
-                  <div className="flex gap-1 items-center">
-                    <Link
-                      to={`/dashboard/single-facility/${item?._id}`}
-                      className="text-xl text-green-500"
-                    >
-                      <CiViewList />
-                    </Link>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {getAllFacility?.data
+              ?.filter((item: any) => !item.isDeleted) // Filter out deleted items
+              .map((item: any, idx: number) => (
+                <tr key={item?._id}>
+                  <th>{idx + 1}</th>
+                  <td>{item?.name}</td>
+                  <td>{item?.pricePerHour}</td>
+                  <td>{moment(new Date(item?.createdAt)).format("Y-MM-DD")}</td>
+                  <td>
+                    <div className="flex gap-1 items-center">
+                      <Link
+                        to={`/dashboard/single-facility/${item?._id}`}
+                        className="text-xl text-green-500"
+                      >
+                        <CiViewList />
+                      </Link>
+                      <button
+                        onClick={() => handleDeleteFacility(item?._id)}
+                        className="text-xl text-red-500"
+                      >
+                        <AiFillDelete />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
