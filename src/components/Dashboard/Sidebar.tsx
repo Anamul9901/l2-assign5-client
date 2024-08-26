@@ -61,21 +61,21 @@ const Sidebar = () => {
               </li>
 
               {/* admin sidebar*/}
-              {/* <li>
+              <li>
                 <NavLink
-                  to="my-bookings"
+                  to="facility-management"
                   className={({ isActive, isPending }) =>
                     isPending
                       ? "pending"
                       : isActive
                       ? "text-[#050506] underline font-black"
-                      : "lg:text-white text-[#09962f]"
+                      : "lg:text-white"
                   }
                 >
                   <FaProductHunt />
-                  My Bookings
+                  Facility Management
                 </NavLink>
-              </li> */}
+              </li>
 
               <hr className="my-4 mx-2" />
               <li>

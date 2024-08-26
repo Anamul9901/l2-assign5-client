@@ -6,6 +6,8 @@ import Register from "./Register";
 import Dashboard from "../Layout/Dashboard";
 import DashHome from "../pages/Dashboard/DashHome";
 import MyBookings from "../pages/Dashboard/MyBookings/MyBookings";
+import FacilityManagement from "../pages/Dashboard/FacilityManagement/FacilityManagement";
+import SingleFacility from "../pages/Dashboard/FacilityManagement/SingleFacility";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
       {
         path: "my-bookings",
         element: <MyBookings />,
+      },
+      {
+        path: "facility-management",
+        element: <FacilityManagement />,
+      },
+      {
+        path: "single-facility/:id",
+        element: <SingleFacility />,
       },
     ],
   },
