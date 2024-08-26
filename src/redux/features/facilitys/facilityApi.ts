@@ -27,7 +27,7 @@ const facilityApi = baseApi.injectEndpoints({
       query: (args) => {
         return {
           url: `/facility/${args.id}`,
-          method: "UPDATE",
+          method: "PUT",
           body: args.data,
         };
       },
