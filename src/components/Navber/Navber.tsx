@@ -49,7 +49,7 @@ const Navber = () => {
 
       <li>
         <NavLink
-          to="/products"
+          to="/facility"
           className={({ isActive, isPending }) =>
             isPending
               ? "pending"
@@ -58,7 +58,7 @@ const Navber = () => {
               : "lg:text-white text-[#09962f] font-bold md:text-xl"
           }
         >
-          aaaaa
+          Facility
         </NavLink>
       </li>
 

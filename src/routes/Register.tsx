@@ -10,14 +10,22 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
   const [register, { error }] = useRegisterMutation();
-  // console.log(error);
+  if ((error as any)?.data?.success == false) {
+    Swal.fire({
+      position: "top-end",
+      icon: "error",
+      title: `${(error as any)?.data?.message}`,
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  }
   const onFinish = async (values: any) => {
     const userInfo = {
       name: values.name,
       email: values.email,
       phone: values.phone,
       password: values.password,
-      role: values.role,
+      role: "user",
     };
     console.log(userInfo);
 
@@ -93,18 +101,6 @@ const Register = () => {
                   prefix={<LockOutlined className="site-form-item-icon" />}
                   type="password"
                   placeholder="Password"
-                />
-              </Form.Item>
-              <Form.Item
-                name="role"
-                rules={[
-                  { required: true, message: "Please input your Password!" },
-                ]}
-              >
-                <Input
-                  prefix={<LockOutlined className="site-form-item-icon" />}
-                  type="text"
-                  placeholder="Role"
                 />
               </Form.Item>
 

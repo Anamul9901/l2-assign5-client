@@ -10,6 +10,8 @@ import FacilityManagement from "../pages/Dashboard/FacilityManagement/FacilityMa
 import SingleFacility from "../pages/Dashboard/FacilityManagement/SingleFacility";
 import BookingManagement from "../pages/Dashboard/BookingManagement/BookingManagement";
 import AddAdmin from "../pages/Dashboard/AddAdmin/AddAdmin";
+import Facility from "../pages/Facility/Facility";
+import FacilityDetails from "../pages/Facility/FacilityDetails";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/facility",
+        element: <Facility />,
+      },
+      {
+        path: "/facility/:id",
+        element: <FacilityDetails />,
       },
     ],
   },
