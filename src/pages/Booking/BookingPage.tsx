@@ -12,15 +12,49 @@ const BookingPage = () => {
     skip: !bookingData,
   });
 
-  console.log(availableBooking);
+  console.log("avaial", availableBooking?.data);
 
   const handleCheckBooking = (e: any) => {
     e.preventDefault();
     const form = e.target;
     const data = form.date.value;
     const checkBookingData = { date: data, facilityId: id };
-    console.log(checkBookingData);
     setBookingData(checkBookingData as any);
+  };
+
+  // ------------------------
+  function mergeTimeSlots(data: any) {
+    if (data.length === 0) return [];
+
+    const mergedSlots = [];
+    let currentSlot = { ...data[0] };
+
+    for (let i = 1; i < data.length; i++) {
+      if (data[i].startTime === currentSlot.endTime) {
+        currentSlot.endTime = data[i].endTime;
+      } else {
+        mergedSlots.push(currentSlot);
+        currentSlot = { ...data[i] };
+      }
+    }
+
+    mergedSlots.push(currentSlot); // Push the last merged slot
+
+    return mergedSlots;
+  }
+
+  const mergedData = mergeTimeSlots(availableBooking?.data || []);
+  console.log("convert format", mergedData);
+  //----------------------------
+
+  const handleBooking = (e: any) => {
+    e.preventDefault();
+    const form = e.target;
+    const startTime = form.startTime.value;
+    const endTime = form.endTime.value;
+
+    const bookingData = { startTime, endTime };
+    console.log(bookingData);
   };
   return (
     <div className="min-h-[100vh] max-w-7xl mx-auto w-full">
@@ -42,9 +76,10 @@ const BookingPage = () => {
               </div>
             </div>
           ))}
-        {/* date picker */}
+        {/* Start form */}
         <form onSubmit={handleCheckBooking} action="">
           <div className="flex justify-center pt-2">
+            {/* date picker */}
             <div className=" w-1/2  flex justify-between">
               <input
                 required
@@ -57,6 +92,67 @@ const BookingPage = () => {
             </div>
           </div>
         </form>
+        {/* End form */}
+
+        {/* start avilabile time div  */}
+        <div className="pt-6">
+          <h1 className="text-center text-xl font-semibold pb-2">
+            Available Slots
+          </h1>
+          <div className="flex justify-center ">
+            <div className=" w-1/2 grid grid-cols-2 justify-between gap-3 items-center">
+              {mergedData?.map((item: any, idx: number) => (
+                <div key={idx} className="w-full">
+                  <div className="bg-slate-300 text-center py-1">
+                    <h1>
+                      {item?.startTime} - {item?.endTime}
+                    </h1>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {mergedData.length == 0 && (
+            <h1 className="text-center border w-1/2 mx-auto">
+              Slot not available
+            </h1>
+          )}
+        </div>
+        {/* End avilabile time div  */}
+
+        {/* start book time div  */}
+        <form onSubmit={handleBooking} action="">
+          <div className="flex justify-center pt-6">
+            <div className=" w-1/2 flex justify-between gap-8 items-center">
+              <div className="w-full">
+                <h1>Start Time</h1>
+                <div className=" border text-center">
+                  <input
+                    className="py-1 w-full"
+                    name="startTime"
+                    type="time"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="w-full">
+                <h1>End Time</h1>
+                <div className=" border text-center">
+                  <input
+                    className="py-1 w-full"
+                    name="endTime"
+                    type="time"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="text-center pt-6 w-1/2 mx-auto">
+            <button className="btn btn-sm w-full rounded-none">submit</button>
+          </div>
+        </form>
+        {/* end book time div  */}
       </div>
     </div>
   );
