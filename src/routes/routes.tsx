@@ -12,11 +12,14 @@ import BookingManagement from "../pages/Dashboard/BookingManagement/BookingManag
 import AddAdmin from "../pages/Dashboard/AddAdmin/AddAdmin";
 import Facility from "../pages/Facility/Facility";
 import FacilityDetails from "../pages/Facility/FacilityDetails";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import BookingPage from "../pages/Booking/BookingPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -29,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/facility/:id",
         element: <FacilityDetails />,
+      },
+      {
+        path: "/booking/:id",
+        element: <BookingPage />,
       },
     ],
   },

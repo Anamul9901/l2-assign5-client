@@ -22,9 +22,10 @@ const bookingsApi = baseApi.injectEndpoints({
     }),
 
     checkAvailablBooking: builder.query({
-      query: () => {
+      query: (args) => {
+        console.log('args-', args.date);
         return {
-          url: `/check-availability`,
+          url: `/check-availability?date=${args?.date}&facility=${args?.facilityId}`,
           method: "GET",
         };
       },
