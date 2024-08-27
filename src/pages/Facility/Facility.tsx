@@ -13,12 +13,12 @@ const Facility = () => {
         <div>
             <h1 className="text-center text-2xl font-bold pb-4">All Facility</h1>
         </div>
-      <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 gap-2 justify-center items-center">
+      <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4 justify-center items-center">
         {avilableFacility?.map((item: any) => (
           <div key={item?._id}>
-            <div className=" card rounded-none card-compact w-[200px] bg-base-100 shadow-xl">
+            <div className=" card rounded-none card-compact  bg-base-100 shadow-xl">
               <figure>
-                <img className="w-[200px]"
+                <img className="w-full"
                   src={item?.image || 'https://i.ibb.co/kBNtTmC/No-Image-Available.jpg'}
                   alt="Shoes"
                 />
