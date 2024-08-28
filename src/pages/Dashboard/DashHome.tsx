@@ -1,18 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useGetUserQuery } from "../../redux/features/auth/authApi";
-import { selectCurrentUser, useCurrentToken } from "../../redux/features/auth/authSlice";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 import { useAppSelector } from "../../redux/hooks";
 
 const DashHome = () => {
   const user = useAppSelector(selectCurrentUser);
-  const token = useAppSelector(useCurrentToken);
-  console.log(token);
-  const userInfo = { email: (user as any)?.email, token };
-  console.log(userInfo);
-  const { data: userData } = useGetUserQuery(userInfo);
-  console.log("userem", userData);
+  console.log(user);
 
-  return <div>Welcome</div>;
+  return (
+    <div className="h-[60vh] items-center flex justify-center">
+     <div>
+     <h1 className="text-2xl font-semibold text-center">
+        Welcome back{" "}
+        <span className="text-green-500">Mr. {(user as any)?.name}</span>
+      </h1>
+      <div className="flex justify-center pt-10">
+      <div className="bg-slate-300 py-5 px-8 rounded-md">
+        <h1 className="font-semibold">Role: {(user as any)?.role}</h1>
+        <h1 className="font-semibold">Email: {(user as any)?.email}</h1>
+        <h1 className="font-semibold">Phone: {(user as any)?.phone}</h1>
+      </div>
+      </div>
+     </div>
+    </div>
+  );
 };
 
 export default DashHome;

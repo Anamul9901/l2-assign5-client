@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import { useGetAllFacilityQuery } from "../../redux/features/facilitys/facilityApi";
 import { useCheckAvailablBookingQuery } from "../../redux/features/bookings/bookingsApi";
 import { useState } from "react";
+import { useCreateOrderMutation } from "../../redux/features/order/orderApi";
+import { useAppSelector } from "../../redux/hooks";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import Swal from "sweetalert2";
 
 const BookingPage = () => {
   const [bookingData, setBookingData] = useState();
@@ -12,8 +16,16 @@ const BookingPage = () => {
   const { data: availableBooking } = useCheckAvailablBookingQuery(bookingData, {
     skip: !bookingData,
   });
+  const [createOrder] = useCreateOrderMutation();
+  const userData: any = useAppSelector(selectCurrentUser);
+  const { name, phone, email } = userData;
+  const user = { name, email, phone, address: "asdf" };
+  console.log(user);
 
-  console.log("avaial", availableBooking?.data);
+  const currentFacility = allFacility?.data?.filter(
+    (item: any) => item?._id == id
+  );
+  const pricePerHour = currentFacility?.[0].pricePerHour;
 
   const handleCheckBooking = (e: any) => {
     e.preventDefault();
@@ -46,10 +58,9 @@ const BookingPage = () => {
   }
 
   const mergedData = mergeTimeSlots(availableBooking?.data || []);
-  console.log("convert format", mergedData);
   //----------------------------
 
-  const handleBooking = (e: any) => {
+  const handleBooking = async (e: any) => {
     e.preventDefault();
     const form = e.target;
     const startTime = form.startTime.value;
@@ -57,8 +68,36 @@ const BookingPage = () => {
     const facility = id;
     const date = selectDate;
 
-    const bookingData = { startTime, endTime, facility, date };
+    // calculte booking payable amount depends on facility pricePerHour
+    const start: any = new Date(`1970-01-10T${startTime}:00`);
+    const end: any = new Date(`1970-01-10T${endTime}:00`);
+    const differenceInMilliseconds = end - start;
+
+    const differenceInHours = differenceInMilliseconds / 3600000;
+    console.log("dif hou", differenceInHours);
+    if(differenceInHours < 1){
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Minimum booking: 1 hour",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return 0
+    }
+
+    const payableAmount = Number(pricePerHour) * differenceInHours;
+
+    //! order create
+    const bookingData = { startTime, endTime, facility, date, payableAmount };
+
+    const test = { user, totalPrice: payableAmount, facility: id };
     console.log(bookingData);
+    const res = await createOrder(test).unwrap();
+    if (res.success) {
+      console.log("res", res);
+      window.location.href = res.data.payment_url;
+    }
   };
   return (
     <div className="min-h-[100vh] pt-9 max-w-7xl mx-auto w-full px-4 md:px-0">
@@ -157,7 +196,12 @@ const BookingPage = () => {
             </div>
           </div>
           <div className="text-center pt-6 w-full md:w-1/2 mx-auto">
-            <button disabled={!selectDate} className="btn btn-sm w-full rounded-none">submit</button>
+            <button
+              disabled={!selectDate}
+              className="btn btn-sm w-full rounded-none"
+            >
+              submit
+            </button>
           </div>
         </form>
         {/* end book time div  */}

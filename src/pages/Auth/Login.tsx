@@ -26,8 +26,8 @@ const Login = () => {
     // console.log("Received values of form: ", values.user);
     console.log("Received res of form: ", res);
     if (res.success === true) {
-      const { _id, email, role } = res.data;
-      const finalResData = { _id, email, role };
+      const { _id, email, role, name, phone } = res.data;
+      const finalResData = { _id, email, role, name, phone };
       console.log(finalResData);
       dispatch(setUser({ user: finalResData, token: res.token }));
       Swal.fire({

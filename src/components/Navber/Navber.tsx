@@ -1,14 +1,17 @@
 import { Link, NavLink } from "react-router-dom";
-import { BsCartCheck } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { logout, selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { logout, useCurrentToken } from "../../redux/features/auth/authSlice";
 import Swal from "sweetalert2";
+import { verifyToken } from "../../utils/verifyToken";
 
 const Navber = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector(selectCurrentUser);
-  console.log(user);
+  const token = useAppSelector(useCurrentToken);
+  let user;
+  if (token) {
+    user = verifyToken(token);
+  }
 
   const handleLogout = () => {
     Swal.fire({
@@ -124,11 +127,6 @@ const Navber = () => {
             <ul className="menu menu-horizontal px-1">{navitem}</ul>
           </div>
           <div className="navbar-end">
-            <div className="pr-4">
-              <Link className="text-2xl hover:text-3xl" to="/cart">
-                <BsCartCheck />
-              </Link>
-            </div>
             {user ? (
               <div className="flex items-center">
                 <div className="flex flex-row-reverse items-center">

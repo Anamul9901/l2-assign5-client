@@ -14,6 +14,7 @@ import Facility from "../pages/Facility/Facility";
 import FacilityDetails from "../pages/Facility/FacilityDetails";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import BookingPage from "../pages/Booking/BookingPage";
+import ProtctedRoute from "../Layout/ProtctedRoute";
 
 const router = createBrowserRouter([
   {
@@ -51,23 +52,43 @@ const router = createBrowserRouter([
       },
       {
         path: "my-bookings",
-        element: <MyBookings />,
+        element: (
+          <ProtctedRoute role="user">
+            <MyBookings />
+          </ProtctedRoute>
+        ),
       },
       {
         path: "facility-management",
-        element: <FacilityManagement />,
+        element: (
+          <ProtctedRoute role="admin">
+            <FacilityManagement />
+          </ProtctedRoute>
+        ),
       },
       {
         path: "single-facility/:id",
-        element: <SingleFacility />,
+        element: (
+          <ProtctedRoute role="admin">
+            <SingleFacility />
+          </ProtctedRoute>
+        ),
       },
       {
         path: "booking-management",
-        element: <BookingManagement />,
+        element: (
+          <ProtctedRoute role="admin">
+            <BookingManagement />
+          </ProtctedRoute>
+        ),
       },
       {
         path: "add-admin",
-        element: <AddAdmin />,
+        element: (
+          <ProtctedRoute role="admin">
+            <AddAdmin />
+          </ProtctedRoute>
+        ),
       },
     ],
   },
