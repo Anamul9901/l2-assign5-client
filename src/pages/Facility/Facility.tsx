@@ -23,7 +23,6 @@ const Facility = () => {
     return !item?.isDeleted && isNameOrLocationMatch && isPriceMatch;
   });
 
-  console.log(avilableFacility);
 
   return (
     <div className="min-h-[100vh] max-w-7xl mx-auto w-full py-12 px-2">
@@ -82,7 +81,7 @@ const Facility = () => {
                   <span className="text-sm">{item.location}</span>
                 </h2>
                 <h2>Price (per-hour): {item.pricePerHour}$</h2>
-                <div className="card-actions justify-end">
+                <div className="card-actions justify-end pt-2">
                   <Link to={`/facility/${item?._id}`} className="btn btn-sm">
                     View Details
                   </Link>

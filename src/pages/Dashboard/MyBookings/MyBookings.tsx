@@ -21,7 +21,7 @@ const MyBookings = () => {
   };
 
   const handleCancel = async (id: string) => {
-    const res = await cancelBooking(id);
+    await cancelBooking(id);
   };
   return (
     <div>

@@ -4,7 +4,6 @@ import { useGetAllFacilityQuery } from "../../redux/features/facilitys/facilityA
 
 const FacilityDetails = () => {
   const { id } = useParams();
-  console.log(id);
   const { data: allFacility } = useGetAllFacilityQuery(undefined);
   return (
     <div className="min-h-[100vh] max-w-7xl mx-auto w-full py-10 px-2">

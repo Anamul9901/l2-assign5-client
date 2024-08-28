@@ -4,7 +4,6 @@ import { useAppSelector } from "../../redux/hooks";
 
 const DashHome = () => {
   const user = useAppSelector(selectCurrentUser);
-  console.log(user);
 
   return (
     <div className="h-[60vh] items-center flex justify-center">

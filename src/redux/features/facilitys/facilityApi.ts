@@ -13,7 +13,6 @@ const facilityApi = baseApi.injectEndpoints({
 
     createFacility: builder.mutation({
       query: (data) => {
-        console.log("userinfo", data);
         return {
           url: "/facility",
           method: "POST",

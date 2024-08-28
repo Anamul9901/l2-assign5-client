@@ -11,24 +11,18 @@ import Swal from "sweetalert2";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [login, { error }] = useLoginMutation();
-  console.log("error=>", error);
+  const [login] = useLoginMutation();
 
   const onFinish = async (values: any) => {
     const userInfo = {
       email: values.email,
       password: values.password,
     };
-    console.log(userInfo);
     const res = await login(userInfo).unwrap();
-    console.log("res-", res);
 
-    // console.log("Received values of form: ", values.user);
-    console.log("Received res of form: ", res);
     if (res.success === true) {
       const { _id, email, role, name, phone } = res.data;
       const finalResData = { _id, email, role, name, phone };
-      console.log(finalResData);
       dispatch(setUser({ user: finalResData, token: res.token }));
       Swal.fire({
         position: "top-end",

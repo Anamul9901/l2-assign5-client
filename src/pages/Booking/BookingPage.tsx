@@ -10,6 +10,7 @@ import { useCreateOrderMutation } from "../../redux/features/order/orderApi";
 import { useAppSelector } from "../../redux/hooks";
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 import Swal from "sweetalert2";
+import { TimePicker } from "antd";
 
 const BookingPage = () => {
   const [bookingData, setBookingData] = useState();
@@ -28,9 +29,7 @@ const BookingPage = () => {
   const currentFacility = allFacility?.data?.find(
     (item: any) => item._id === id
   );
-  console.log("facility", currentFacility);
   const pricePerHour = currentFacility?.pricePerHour;
-  console.log("price per hour", pricePerHour);
 
   const handleCheckBooking = (e: any) => {
     e.preventDefault();
@@ -79,8 +78,17 @@ const BookingPage = () => {
     const differenceInMilliseconds = end - start;
 
     const differenceInHours = differenceInMilliseconds / 3600000;
-    console.log("dif hou", differenceInHours);
-    if (differenceInHours < 0.1) {
+    if (differenceInHours < 0) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Start time should be before End time !",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return 0;
+    }
+    if (differenceInHours < 0.5) {
       Swal.fire({
         position: "top-end",
         icon: "error",
@@ -108,12 +116,21 @@ const BookingPage = () => {
       endTime,
       date,
     };
-    // console.log("bookingData", bookingData);
-    const res = await createOrder(paymentData).unwrap();
-    console.log("res", res);
-    if (res.success) {
-      await createBooking(bookData);
-      window.location.href = res.data.payment_url;
+    const bookingRes = await createBooking(bookData);
+    console.log((bookingRes as any));
+    if (bookingRes?.data?.success) {
+      const res = await createOrder(paymentData).unwrap();
+      if (res.success) {
+        window.location.href = res.data.payment_url;
+      }
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: `${(bookingRes as any)?.error?.data?.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
   return (
@@ -150,7 +167,7 @@ const BookingPage = () => {
               />
               <div className="w-full">
                 <button className="btn btn-sm rounded-none w-full">
-                  Submin
+                  Submit
                 </button>
               </div>
             </div>
@@ -191,10 +208,10 @@ const BookingPage = () => {
               <div className="w-full">
                 <h1>Start Time</h1>
                 <div className=" border text-center">
-                  <input
-                    className="py-1 w-full"
+                  <TimePicker
+                    className="w-full rounded-none"
+                    format={"HH:mm"}
                     name="startTime"
-                    type="time"
                     required
                   />
                 </div>
@@ -202,10 +219,10 @@ const BookingPage = () => {
               <div className="w-full">
                 <h1>End Time</h1>
                 <div className=" border text-center">
-                  <input
-                    className="py-1 w-full"
+                  <TimePicker
+                    className="w-full rounded-none"
+                    format={"HH:mm"}
                     name="endTime"
-                    type="time"
                     required
                   />
                 </div>

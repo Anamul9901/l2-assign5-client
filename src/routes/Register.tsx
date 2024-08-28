@@ -27,10 +27,8 @@ const Register = () => {
       password: values.password,
       role: "user",
     };
-    console.log(userInfo);
 
     const res = await register(userInfo).unwrap();
-    console.log("success", res);
 
     if (res.success === true) {
       Swal.fire({
