@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router-dom";
 import { useGetAllFacilityQuery } from "../../redux/features/facilitys/facilityApi";
-import { useCheckAvailablBookingQuery } from "../../redux/features/bookings/bookingsApi";
+import {
+  useCheckAvailablBookingQuery,
+  useCreateBookingMutation,
+} from "../../redux/features/bookings/bookingsApi";
 import { useState } from "react";
 import { useCreateOrderMutation } from "../../redux/features/order/orderApi";
 import { useAppSelector } from "../../redux/hooks";
@@ -17,15 +20,17 @@ const BookingPage = () => {
     skip: !bookingData,
   });
   const [createOrder] = useCreateOrderMutation();
+  const [createBooking] = useCreateBookingMutation();
   const userData: any = useAppSelector(selectCurrentUser);
   const { name, phone, email } = userData;
-  const user = { name, email, phone, address: "asdf" };
-  console.log(user);
+  const user = { name, email, phone };
 
-  const currentFacility = allFacility?.data?.filter(
-    (item: any) => item?._id == id
+  const currentFacility = allFacility?.data?.find(
+    (item: any) => item._id === id
   );
-  const pricePerHour = currentFacility?.[0].pricePerHour;
+  console.log("facility", currentFacility);
+  const pricePerHour = currentFacility?.pricePerHour;
+  console.log("price per hour", pricePerHour);
 
   const handleCheckBooking = (e: any) => {
     e.preventDefault();
@@ -75,27 +80,39 @@ const BookingPage = () => {
 
     const differenceInHours = differenceInMilliseconds / 3600000;
     console.log("dif hou", differenceInHours);
-    if(differenceInHours < 1){
+    if (differenceInHours < 0.1) {
       Swal.fire({
         position: "top-end",
         icon: "error",
-        title: "Minimum booking: 1 hour",
+        title: "Minimum booking: 0.5 hour",
         showConfirmButton: false,
         timer: 1500,
       });
-      return 0
+      return 0;
     }
 
     const payableAmount = Number(pricePerHour) * differenceInHours;
 
     //! order create
-    const bookingData = { startTime, endTime, facility, date, payableAmount };
-
-    const test = { user, totalPrice: payableAmount, facility: id };
-    console.log(bookingData);
-    const res = await createOrder(test).unwrap();
+    const paymentData = {
+      startTime,
+      endTime,
+      date,
+      user,
+      totalPrice: payableAmount,
+      facility,
+    };
+    const bookData = {
+      facility,
+      startTime,
+      endTime,
+      date,
+    };
+    // console.log("bookingData", bookingData);
+    const res = await createOrder(paymentData).unwrap();
+    console.log("res", res);
     if (res.success) {
-      console.log("res", res);
+      await createBooking(bookData);
       window.location.href = res.data.payment_url;
     }
   };
