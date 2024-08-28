@@ -92,7 +92,7 @@ const Navber = () => {
               : "lg:text-white text-[#09962f] font-bold md:text-xl"
           }
         >
-          About-Us
+          About us
         </NavLink>
       </li>
       <li>
@@ -106,7 +106,7 @@ const Navber = () => {
               : "lg:text-white text-[#09962f] font-bold md:text-xl"
           }
         >
-          Contact-Us
+          Contact
         </NavLink>
       </li>
     </>

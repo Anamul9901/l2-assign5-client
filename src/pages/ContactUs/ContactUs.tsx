@@ -51,8 +51,8 @@ const ContactUs = () => {
 
   return (
     <div className="style max-w-7xl mx-auto w-full">
-      <h1 className="text-center font-bold text-3xl pt-10">Contact Us</h1>
-      <div className="pt-4 min:h-[100vh]  items-center">
+      <h1 className="text-center font-bold text-3xl pt-14">Contact Us</h1>
+      <div className="pt-8 min:h-[100vh]  items-center">
         <div className="grid md:grid-cols-2 gap-4 text-white md:w-2/3 w-full mx-auto justify-center">
           <div className=" bg-stone-700  rounded-md p-5  flex items-center gap-5">
             <div className="btn rounded-full text-xl">
@@ -120,7 +120,7 @@ const ContactUs = () => {
 
         {/* email */}
 
-        <h1 className="text-2xl font-bold text-center pt-20">
+        <h1 className="text-2xl font-bold text-center pt-32">
           Send Email Message
         </h1>
 
