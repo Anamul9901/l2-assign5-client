@@ -20,16 +20,16 @@ const Sidebar = () => {
     <div>
       <div className="flex max-w-[1300px] mx-auto w-full">
         {/* dashboard side bar */}
-        <div className="w-64 pt-6 min-h-screen bg-[#f76b00] text-white">
+        <div className="md:w-64 w-14 pt-6 min-h-screen bg-[#f76b00] text-white">
           <ul className="menu">
             <Link to="/dashboard/home">
-              <div className="flex items-center gap-2 justify-center mb-2">
-                <img
+              <div className="flex items-center  justify-center mb-2">
+                {/* <img
                   className="w-[15%] rounded mb-5"
                   // src={filterUser?.[0]?.shopLogo}
                   alt=""
-                />
-                <h2 className="text-center font-bold">Name</h2>
+                /> */}
+                <h2 className="text-center font-bold">--</h2>
               </div>
             </Link>
             <hr className="my-4 mx-2" />
@@ -46,7 +46,7 @@ const Sidebar = () => {
                 }
               >
                 <RxDashboard />
-                Dashboard
+                <span className="hidden md:inline-block">Dashboard</span>
               </NavLink>
             </li>
 
@@ -65,7 +65,7 @@ const Sidebar = () => {
                     }
                   >
                     <FaProductHunt />
-                    My Bookings
+                    <span className="hidden md:inline-block">My Bookings</span>
                   </NavLink>
                 </li>
               </div>
@@ -86,7 +86,7 @@ const Sidebar = () => {
                     }
                   >
                     <FaProductHunt />
-                    Facility Management
+                    <span className="hidden md:inline-block">Facility Management</span>
                   </NavLink>
                 </li>
 
@@ -102,7 +102,7 @@ const Sidebar = () => {
                     }
                   >
                     <FaProductHunt />
-                    Booking Management
+                    <span  className="hidden md:inline-block">Booking Management</span>
                   </NavLink>
                 </li>
 
@@ -118,7 +118,7 @@ const Sidebar = () => {
                     }
                   >
                     <FaProductHunt />
-                    Add Admin
+                    <span className="hidden md:inline-block">Add Admin</span>
                   </NavLink>
                 </li>
               </div>
@@ -128,14 +128,14 @@ const Sidebar = () => {
             <li>
               <NavLink to="/">
                 <FaHouseMedicalFlag />
-                Home
+                <span className="hidden md:inline-block">Home</span>
               </NavLink>
             </li>
 
             <li>
               <NavLink to="/dashboard/adminHome">
                 <IoIosLogOut />
-                Log-Out
+                <span className="hidden md:inline-block">Log-Out</span>
               </NavLink>
             </li>
           </ul>

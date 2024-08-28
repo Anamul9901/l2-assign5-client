@@ -215,9 +215,9 @@ const BookingPage = () => {
           <div className="text-center pt-6 w-full md:w-1/2 mx-auto">
             <button
               disabled={!selectDate}
-              className="btn btn-sm w-full rounded-none"
+              className="btn btn-sm w-full rounded-none bg-green-300"
             >
-              submit
+              Proceed to Pay
             </button>
           </div>
         </form>

@@ -15,6 +15,8 @@ import FacilityDetails from "../pages/Facility/FacilityDetails";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import BookingPage from "../pages/Booking/BookingPage";
 import ProtctedRoute from "../Layout/ProtctedRoute";
+import ContactUs from "../pages/ContactUs/ContactUs";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       {
         path: "/booking/:id",
         element: <BookingPage />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs />,
       },
     ],
   },
