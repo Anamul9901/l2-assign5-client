@@ -1,20 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FaProductHunt } from "react-icons/fa";
+import { FaFlagCheckered, FaProductHunt, FaRegBookmark } from "react-icons/fa";
 import { FaHouseMedicalFlag } from "react-icons/fa6";
 import { IoIosLogOut } from "react-icons/io";
 import { RxDashboard } from "react-icons/rx";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { useAppSelector } from "../../redux/hooks";
-import { useCurrentToken } from "../../redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { logout, useCurrentToken } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
+import { MdManageAccounts, MdOutlineBookmarkAdd, MdOutlineManageAccounts } from "react-icons/md";
+import { BsBookmarkPlus } from "react-icons/bs";
 
 const Sidebar = () => {
   const token = useAppSelector(useCurrentToken);
+  const dispatch = useAppDispatch();
 
   let user;
   if (token) {
     user = verifyToken(token);
   }
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <div>
@@ -64,7 +71,7 @@ const Sidebar = () => {
                         : "lg:text-white "
                     }
                   >
-                    <FaProductHunt />
+                    <FaRegBookmark />
                     <span className="hidden md:inline-block">My Bookings</span>
                   </NavLink>
                 </li>
@@ -85,8 +92,10 @@ const Sidebar = () => {
                         : "lg:text-white"
                     }
                   >
-                    <FaProductHunt />
-                    <span className="hidden md:inline-block">Facility Management</span>
+                    <FaFlagCheckered />
+                    <span className="hidden md:inline-block">
+                      Facility Management
+                    </span>
                   </NavLink>
                 </li>
 
@@ -101,8 +110,10 @@ const Sidebar = () => {
                         : "lg:text-white"
                     }
                   >
-                    <FaProductHunt />
-                    <span  className="hidden md:inline-block">Booking Management</span>
+                    <BsBookmarkPlus />
+                    <span className="hidden md:inline-block">
+                      Booking Management
+                    </span>
                   </NavLink>
                 </li>
 
@@ -117,7 +128,7 @@ const Sidebar = () => {
                         : "lg:text-white"
                     }
                   >
-                    <FaProductHunt />
+                   <MdManageAccounts />
                     <span className="hidden md:inline-block">Add Admin</span>
                   </NavLink>
                 </li>
@@ -133,9 +144,12 @@ const Sidebar = () => {
             </li>
 
             <li>
-              <NavLink to="/dashboard/adminHome">
-                <IoIosLogOut />
-                <span className="hidden md:inline-block">Log-Out</span>
+              <NavLink to="/">
+                <div onClick={handleLogout} className="flex items-center gap-2">
+                  {" "}
+                  <IoIosLogOut />
+                  <span className="hidden md:inline-block">Log-Out</span>
+                </div>
               </NavLink>
             </li>
           </ul>
