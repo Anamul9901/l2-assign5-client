@@ -5,6 +5,9 @@ import { Button, Form, Input } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import Swal from "sweetalert2";
 import { useRegisterMutation } from "../../../redux/features/auth/authApi";
+import { MdOutlineAttachEmail } from "react-icons/md";
+import { FiPhone } from "react-icons/fi";
+import { FaRegAddressCard } from "react-icons/fa";
 
 const AddAdmin = () => {
   const [register, { error }] = useRegisterMutation();
@@ -12,7 +15,7 @@ const AddAdmin = () => {
     Swal.fire({
       position: "top-end",
       icon: "error",
-      title: `${(error as any)?.data?.message}`,
+      title: `This email is already registered.`,
       showConfirmButton: false,
       timer: 2000,
     });
@@ -23,11 +26,11 @@ const AddAdmin = () => {
       email: values.email,
       phone: values.phone,
       password: values.password,
+      address: values.address,
       role: "admin",
     };
 
     const res = await register(userInfo).unwrap();
-
     if (res.success === true) {
       Swal.fire({
         position: "top-end",
@@ -48,7 +51,7 @@ const AddAdmin = () => {
             </h1>
           </div>
           <div className="p-10 rounded-md bg-gray-200 glass ">
-            <Form
+          <Form
               name="normal_login"
               className="login-form"
               initialValues={{ remember: true }}
@@ -70,7 +73,7 @@ const AddAdmin = () => {
                 ]}
               >
                 <Input
-                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  prefix={<MdOutlineAttachEmail className="site-form-item-icon" />}
                   placeholder="Your Email"
                 />
               </Form.Item>
@@ -81,7 +84,7 @@ const AddAdmin = () => {
                 ]}
               >
                 <Input
-                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  prefix={<FiPhone className="site-form-item-icon" />}
                   placeholder="Your Mobile"
                 />
               </Form.Item>
@@ -98,15 +101,34 @@ const AddAdmin = () => {
                 />
               </Form.Item>
 
+              <Form.Item
+                name="address"
+                rules={[
+                  { required: true, message: "Please input your Password!" },
+                ]}
+              >
+                <Input
+                  prefix={<FaRegAddressCard className="site-form-item-icon" />}
+                  type="address"
+                  placeholder="Address"
+                />
+              </Form.Item>
+
               <Form.Item>
-                <div className="flex items-center gap-3 w-fll">
+                <div className="flex items-center gap-3">
                   <Button
                     type="primary"
                     htmlType="submit"
-                    className="login-form-button bg-green-500 font-semibold w-full"
+                    className="login-form-button bg-blue-500 font-semibold"
                   >
-                    Add Admin
+                    Sign Up
                   </Button>
+                  <p>
+                    Or{" "}
+                    <a href="/login" className="text-green-600">
+                      Login now!
+                    </a>
+                  </p>
                 </div>
               </Form.Item>
             </Form>

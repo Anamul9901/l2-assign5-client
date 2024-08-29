@@ -82,7 +82,7 @@ const Facility = () => {
                 </h2>
                 <h2>Price (per-hour): {item.pricePerHour} tk</h2>
                 <div className="card-actions justify-end pt-2">
-                  <Link to={`/facility/${item?._id}`} className="btn btn-sm">
+                  <Link to={`/facility/${item?._id}`} className="btn bg-[#faaa0bc8] hover:text-[#ffaa00] rounded-none btn-sm">
                     View Details
                   </Link>
                 </div>

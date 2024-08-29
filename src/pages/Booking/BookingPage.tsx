@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router-dom";
 import { useGetAllFacilityQuery } from "../../redux/features/facilitys/facilityApi";
@@ -8,18 +9,29 @@ import {
 import { useState } from "react";
 import { useCreateOrderMutation } from "../../redux/features/order/orderApi";
 import { useAppSelector } from "../../redux/hooks";
-import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import {
+  selectCurrentUser,
+  useCurrentToken,
+} from "../../redux/features/auth/authSlice";
 import Swal from "sweetalert2";
 import { TimePicker } from "antd";
+import { verifyToken } from "../../utils/verifyToken";
+import { JwtPayload } from "jwt-decode";
 
 const BookingPage = () => {
   const [bookingData, setBookingData] = useState();
   const [selectDate, setSelectDate] = useState("");
   const { id } = useParams();
   const { data: allFacility } = useGetAllFacilityQuery(undefined);
-  const { data: availableBooking } = useCheckAvailablBookingQuery(bookingData, {
-    skip: !bookingData,
-  });
+  const { data: availableBooking, isError: bookingError } =
+    useCheckAvailablBookingQuery(bookingData, {
+      skip: !bookingData,
+    });
+  const token = useAppSelector(useCurrentToken);
+  let user2: JwtPayload | undefined;
+  if (token) {
+    user2 = verifyToken(token);
+  }
   const [createOrder] = useCreateOrderMutation();
   const [createBooking] = useCreateBookingMutation();
   const userData: any = useAppSelector(selectCurrentUser);
@@ -72,6 +84,17 @@ const BookingPage = () => {
     const facility = id;
     const date = selectDate;
 
+    if ((user2 as any)?.role == "admin") {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "You Have no access to the route!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return 0;
+    }
+
     // calculte booking payable amount depends on facility pricePerHour
     const start: any = new Date(`1970-01-10T${startTime}:00`);
     const end: any = new Date(`1970-01-10T${endTime}:00`);
@@ -117,7 +140,6 @@ const BookingPage = () => {
       date,
     };
     const bookingRes = await createBooking(bookData);
-    console.log((bookingRes as any));
     if (bookingRes?.data?.success) {
       const res = await createOrder(paymentData).unwrap();
       if (res.success) {
@@ -147,7 +169,7 @@ const BookingPage = () => {
               <div className="bg-slate-200 w-full md:w-1/2 p-2">
                 <h1 className="text-xl font-semibold">{item?.name}</h1>
                 <div className="flex gap-5">
-                  <h1>Prce: {item?.pricePerHour} tk</h1>
+                  <h1>Prce per hour: {item?.pricePerHour} tk</h1>
                   <h1>Location: {item?.location}</h1>
                 </div>
               </div>
@@ -182,20 +204,21 @@ const BookingPage = () => {
           </h1>
           <div className="flex justify-center ">
             <div className="w-full md:w-1/2 grid grid-cols-2 justify-between gap-3 items-center">
-              {mergedData?.map((item: any, idx: number) => (
-                <div key={idx} className="w-full">
-                  <div className="bg-slate-300 text-center py-1">
-                    <h1>
-                      {item?.startTime} - {item?.endTime}
-                    </h1>
+              {!bookingError &&
+                mergedData?.map((item: any, idx: number) => (
+                  <div key={idx} className="w-full">
+                    <div className="bg-slate-300 text-center py-1">
+                      <h1>
+                        {item?.startTime} - {item?.endTime}
+                      </h1>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
-          {mergedData.length == 0 && (
+          {bookingError && (
             <h1 className="text-center border w-full md:w-1/2 mx-auto">
-              No slot available
+              No Slot available
             </h1>
           )}
         </div>
@@ -231,8 +254,8 @@ const BookingPage = () => {
           </div>
           <div className="text-center pt-6 w-full md:w-1/2 mx-auto">
             <button
-              disabled={!selectDate}
-              className="btn btn-sm w-full rounded-none bg-green-300"
+              disabled={mergedData?.length == 0 || bookingError}
+              className="btn btn-sm w-full rounded-none bg-blue-500 glass"
             >
               Proceed to Pay
             </button>

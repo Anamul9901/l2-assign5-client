@@ -7,7 +7,6 @@ import Dashboard from "../Layout/Dashboard";
 import DashHome from "../pages/Dashboard/DashHome";
 import MyBookings from "../pages/Dashboard/MyBookings/MyBookings";
 import FacilityManagement from "../pages/Dashboard/FacilityManagement/FacilityManagement";
-import SingleFacility from "../pages/Dashboard/FacilityManagement/SingleFacility";
 import BookingManagement from "../pages/Dashboard/BookingManagement/BookingManagement";
 import AddAdmin from "../pages/Dashboard/AddAdmin/AddAdmin";
 import Facility from "../pages/Facility/Facility";

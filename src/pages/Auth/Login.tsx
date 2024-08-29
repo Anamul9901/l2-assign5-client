@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Form, Input } from "antd";
@@ -19,12 +20,23 @@ const Login = () => {
       email: values.email,
       password: values.password,
     };
-    const res = await login(userInfo).unwrap();
+    const res = await login(userInfo);
+    if ((res as any)?.error?.data?.message) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: `${(res as any)?.error?.data?.message}`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
 
-    if (res.success === true) {
-      const { _id, email, role, name, phone } = res.data;
+    if (res?.data?.data) {
+      const { _id, email, role, name, phone } = (res as any)?.data?.data;
       const finalResData = { _id, email, role, name, phone };
-      dispatch(setUser({ user: finalResData, token: res.token }));
+      dispatch(
+        setUser({ user: finalResData, token: (res as any)?.data?.token })
+      );
       Swal.fire({
         position: "top-end",
         icon: "success",

@@ -24,8 +24,8 @@ const ContactUs = () => {
         "pbLzIm3Ta3Mtb_nbp"
       )
       .then(
-        (result) => {
-          console.log(result);
+        () => {
+          (form as any).current.reset();
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -34,9 +34,6 @@ const ContactUs = () => {
             timer: 1500,
           });
         },
-        (error) => {
-          console.log(error.text);
-        }
       );
   };
 
@@ -51,7 +48,7 @@ const ContactUs = () => {
 
   return (
     <div className="style max-w-7xl mx-auto w-full">
-      <h1 className="text-center font-bold text-3xl pt-14">Contact Us</h1>
+      <h1 className="text-center font-bold text-3xl pt-14">Contact Details</h1>
       <div className="pt-8 min:h-[100vh]  items-center">
         <div className="grid md:grid-cols-2 gap-4 text-white md:w-2/3 w-full mx-auto justify-center">
           <div className=" bg-stone-700  rounded-md p-5  flex items-center gap-5">
@@ -121,7 +118,7 @@ const ContactUs = () => {
         {/* email */}
 
         <h1 className="text-2xl font-bold text-center pt-32">
-          Send Email Message
+          Send Me Email
         </h1>
 
         <div className="pt-3 md:w-2/3 mx-auto px-12 md:px-0">
@@ -174,7 +171,7 @@ const ContactUs = () => {
               </div>
               <div className="text-center pb-10">
                 <input
-                  className="btn bg-stone-400 uppercase text-white btn-sm w-full"
+                  className="btn bg-blue-500 hover:text-blue-500 uppercase text-white btn-sm w-full"
                   type="submit"
                   value="Send Message"
                 />

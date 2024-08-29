@@ -17,7 +17,7 @@ const Register = () => {
     Swal.fire({
       position: "top-end",
       icon: "error",
-      title: `${(error as any)?.data?.message}`,
+      title: `This email is already registered.`,
       showConfirmButton: false,
       timer: 2000,
     });
@@ -31,7 +31,6 @@ const Register = () => {
       address: values.address,
       role: "user",
     };
-// console.log(userInfo);
     const res = await register(userInfo).unwrap();
 
     if (res.success === true) {

@@ -3,19 +3,12 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    /**
-     * <nav className="grid grid-flow-col gap-4">
-          <a className="link link-hover">About us</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Jobs</a>
-          <a className="link link-hover">Press kit</a>
-        </nav>
-     */
-    <footer className="bg-gray-800 text-white py-14">
-      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
-        <div>&copy; 2024 Sports Facility Booking. All rights reserved.</div>
+    <footer className="bg-gray-800 text-white py-8 md:py-14">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="text-center md:text-left">&copy; 2024 Sport Zone. All rights reserved.</div>
 
-        <div className="flex space-x-4">
+       <div className="md:flex gap-8 items-center">
+       <div className="flex gap-2 items-center justify-center">
           <a
             href="https://www.linkedin.com/in/anamul-haque-772264299/"
             target="_blank"
@@ -38,12 +31,18 @@ const Footer = () => {
             <FaFacebook className="text-xl hover:text-gray-400" />
           </a>
         </div>
-        <div>
-          <nav className="grid grid-flow-col gap-4">
-            <Link to='/about-us' className="link link-hover">About us</Link>
-            <Link to='/contact-us' className="link link-hover">Contact</Link>
+
+        <div className="mt-4 md:mt-0">
+          <nav className=" text-center flex gap-3 items-center justify-center">
+            <Link to="/about-us" className="link link-hover">
+              About us
+            </Link>
+            <Link to="/contact-us" className="link link-hover">
+              Contact
+            </Link>
           </nav>
         </div>
+       </div>
       </div>
     </footer>
   );

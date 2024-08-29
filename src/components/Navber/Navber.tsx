@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { logout, useCurrentToken } from "../../redux/features/auth/authSlice";
@@ -9,6 +9,7 @@ import { verifyToken } from "../../utils/verifyToken";
 const Navber = () => {
   const dispatch = useAppDispatch();
   const token = useAppSelector(useCurrentToken);
+  const navigate = useNavigate();
   let user;
   if (token) {
     user = verifyToken(token);
@@ -31,6 +32,7 @@ const Navber = () => {
           icon: "success",
         });
         dispatch(logout());
+        navigate('/')
       }
     });
   };

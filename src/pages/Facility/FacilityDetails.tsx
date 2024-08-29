@@ -62,11 +62,11 @@ const FacilityDetails = () => {
                 <h1>Description: {item?.description}</h1>
                 <div className="flex items-end pt-6">
                   {user ? (
-                    <Link to={`/booking/${item?._id}`} className="btn btn-sm">
+                    <Link to={`/booking/${item?._id}`} className="btn bg-[#faaa0bc8] hover:text-[#ffaa00] rounded-none   btn-sm">
                       Book Now
                     </Link>
                   ) : (
-                    <button onClick={handleLongin} className="btn btn-sm">
+                    <button onClick={handleLongin} className="btn bg-[#faaa0bc8] hover:text-[#ffaa00] rounded-none  btn-sm">
                       Book Now
                     </button>
                   )}
