@@ -3,6 +3,7 @@ import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import HeroSection from "./HeroSection";
 import FeaturedSection from "./FeaturedSection";
+import CustomerTestimonials from "./CustomerTestimonials";
 
 const HomePage = () => {
   return (
@@ -26,31 +27,10 @@ const HomePage = () => {
       <section className="py-16 bg-gray-100">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
-          Popular Facilities
+            Popular Facilities
           </h2>
           <div className="">
-            {/* Facility Card */}
-            {/* <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <img
-                src="/assets/facility1.jpg"
-                alt="Facility 1"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">Football Ground</h3>
-                <p className="text-gray-700 mb-4">
-                  A premium football ground with top-notch facilities.
-                </p>
-                <NavLink
-                  to="/facility/1"
-                  className="text-blue-500 hover:underline"
-                >
-                  View Details
-                </NavLink>
-              </div>
-            </div> */}
             <FeaturedSection />
-            {/* Repeat Facility Card as needed */}
           </div>
         </div>
       </section>
@@ -85,11 +65,15 @@ const HomePage = () => {
       {/* Customer Testimonials */}
       <section className="py-16 bg-gray-100">
         <div className="max-w-7xl mx-auto px-4">
+
+        <CustomerTestimonials />
+        </div>
+        {/* <div className="">
           <h2 className="text-3xl font-bold text-center mb-12">
             Customer Testimonials
           </h2>
           <div className="space-y-8">
-            {/* Testimonial Item */}
+           
             <div className="bg-white shadow-lg p-6 rounded-lg">
               <p className="text-gray-700 italic mb-4">
                 "Great experience! The booking process was smooth and the
@@ -99,9 +83,9 @@ const HomePage = () => {
                 - John Doe
               </div>
             </div>
-            {/* Repeat Testimonial Item as needed */}
+           
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* Unique Section */}

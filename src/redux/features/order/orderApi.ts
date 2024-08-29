@@ -11,7 +11,16 @@ const orderApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    getCustomerReview: builder.query({
+      query: () => {
+        return {
+          method: "GET",
+          url: `/review`,
+        };
+      },
+    }),
   }),
 });
 
-export const { useCreateOrderMutation } = orderApi;
+export const { useCreateOrderMutation, useGetCustomerReviewQuery } = orderApi;

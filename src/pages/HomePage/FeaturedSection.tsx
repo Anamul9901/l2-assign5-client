@@ -5,11 +5,9 @@ import { Link } from "react-router-dom";
 
 const FeaturedSection = () => {
   const { data: allFacility } = useGetAllFacilityQuery(undefined);
-  console.log(allFacility?.data);
   const filterFacility = allFacility?.data
     ?.filter((item: any) => !item?.isDeleted)
     .slice(0, 4);
-  console.log(filterFacility);
   return (
     <div className="grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-4 justify-center items-center">
       {filterFacility?.map((item: any) => (
