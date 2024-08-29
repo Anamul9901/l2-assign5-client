@@ -3,7 +3,6 @@ import { useGetCustomerReviewQuery } from "../../redux/features/order/orderApi";
 
 const CustomerTestimonials = () => {
   const { data: getCustomerReview } = useGetCustomerReviewQuery(undefined);
-  console.log(getCustomerReview);
   return (
     <div className="flex justify-center items-center">
       <div className="carousel w-full">

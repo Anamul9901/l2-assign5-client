@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MdCancel } from "react-icons/md";
 import {
@@ -7,12 +8,13 @@ import {
 import { CiViewList } from "react-icons/ci";
 import { TbClockCancel } from "react-icons/tb";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const MyBookings = () => {
   const { data: getSingleBooking } = useGetSingleBookingQuery(undefined);
   const [cancelBooking] = useCancelBookingMutation();
   const [modalData, setModalData] = useState([]);
-
+  
   const handleShowDetails = (id: string) => {
     const filterData = getSingleBooking?.data?.filter(
       (item: any) => item?._id == id
@@ -21,10 +23,28 @@ const MyBookings = () => {
   };
 
   const handleCancel = async (id: string) => {
-    await cancelBooking(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you want to cancel",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await cancelBooking(id);
+        Swal.fire({
+          title: "Canceled",
+          text: "Your booking is cancel",
+          icon: "success",
+        });
+      }
+    });
   };
   return (
     <div>
+      <h1 className="text-2xl text-center font-bold pb-6">My Bookings</h1>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           {/* head */}
@@ -78,12 +98,11 @@ const MyBookings = () => {
                                 {
                                   (modalData[0] as any as any)?.facility
                                     ?.pricePerHour
-                                }
-                                $
+                                } tk
                               </h1>
                               <h1>
                                 Payable Amount:{" "}
-                                {(modalData[0] as any)?.payableAmount}$
+                                {(modalData[0] as any)?.payableAmount} tk
                               </h1>
                               <h1>
                                 Location:{" "}
@@ -91,16 +110,16 @@ const MyBookings = () => {
                               </h1>
                             </div>
                             <div>
-                              <h1>Date: {(modalData[0] as any)?.date}$</h1>
+                              <h1>Date: {(modalData[0] as any)?.date}</h1>
                               <h1>
-                                Start Time: {(modalData[0] as any)?.startTime}$
+                                Start Time: {(modalData[0] as any)?.startTime}
                               </h1>
                               <h1>
-                                End Time: {(modalData[0] as any)?.endTime}$
+                                End Time: {(modalData[0] as any)?.endTime}
                               </h1>
                             </div>
                           </div>
-                          <h1 className="flex justify-center">
+                          <h1 className="flex justify-center pt-4">
                             {(modalData[0] as any)?.facility?.description}
                           </h1>
                         </div>

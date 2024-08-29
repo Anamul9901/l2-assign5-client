@@ -1,12 +1,13 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Form, Input } from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../../redux/hooks";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { MdOutlineAttachEmail } from "react-icons/md";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const Login = () => {
         <div className="mx-auto flex  flex-col gap-2 justify-center items-center h-[80vh]">
           <div className="text-2xl font-bold  text-center pb-2">
             <h1>
-              Welcome to <span className="text-green-500">Tree Oasis!</span>
+              Welcome to <span className="text-blue-500">Sport Zone!</span>
             </h1>
             <h1 className="text-xl">Login Page</h1>
           </div>
@@ -58,7 +59,9 @@ const Login = () => {
                 ]}
               >
                 <Input
-                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  prefix={
+                    <MdOutlineAttachEmail className="site-form-item-icon" />
+                  }
                   placeholder="email"
                 />
               </Form.Item>
@@ -80,13 +83,13 @@ const Login = () => {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    className="login-form-button bg-green-500 font-semibold"
+                    className="login-form-button bg-blue-500 font-semibold"
                   >
                     Log in
                   </Button>
                   <p>
                     Or{" "}
-                    <a href="/register" className="text-blue-600">
+                    <a href="/register" className="text-green-600">
                       register now!
                     </a>
                   </p>

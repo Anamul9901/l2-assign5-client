@@ -29,7 +29,7 @@ const FeaturedSection = () => {
                   <MdLocationOn className="text-red-600" />
                   <span className="text-sm">{item.location}</span>
                 </h2>
-                <h2>Price (per-hour): {item.pricePerHour}$</h2>
+                <h2>Price (per-hour): {item.pricePerHour} tk</h2>
                 <div className="card-actions justify-end pt-2">
                   <Link to={`/facility/${item?._id}`} className="btn btn-sm">
                     View Details

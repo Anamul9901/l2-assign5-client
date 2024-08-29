@@ -6,6 +6,9 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useRegisterMutation } from "../redux/features/auth/authApi";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { MdOutlineAttachEmail } from "react-icons/md";
+import { FiPhone } from "react-icons/fi";
+import { FaRegAddressCard } from "react-icons/fa";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -25,9 +28,10 @@ const Register = () => {
       email: values.email,
       phone: values.phone,
       password: values.password,
+      address: values.address,
       role: "user",
     };
-
+// console.log(userInfo);
     const res = await register(userInfo).unwrap();
 
     if (res.success === true) {
@@ -47,7 +51,7 @@ const Register = () => {
         <div className="mx-auto flex flex-col gap-2 justify-center items-center h-[80vh]">
           <div className="text-2xl font-bold  text-center pb-2">
             <h1>
-              Welcome to <span className="text-green-500">Tree Oasis!</span>
+              Welcome to <span className="text-blue-500">Sport Zone!</span>
             </h1>
             <h1 className="text-xl">Register Page</h1>
           </div>
@@ -74,7 +78,7 @@ const Register = () => {
                 ]}
               >
                 <Input
-                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  prefix={<MdOutlineAttachEmail className="site-form-item-icon" />}
                   placeholder="Your Email"
                 />
               </Form.Item>
@@ -85,7 +89,7 @@ const Register = () => {
                 ]}
               >
                 <Input
-                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  prefix={<FiPhone className="site-form-item-icon" />}
                   placeholder="Your Mobile"
                 />
               </Form.Item>
@@ -102,18 +106,31 @@ const Register = () => {
                 />
               </Form.Item>
 
+              <Form.Item
+                name="address"
+                rules={[
+                  { required: true, message: "Please input your Password!" },
+                ]}
+              >
+                <Input
+                  prefix={<FaRegAddressCard className="site-form-item-icon" />}
+                  type="address"
+                  placeholder="Address"
+                />
+              </Form.Item>
+
               <Form.Item>
                 <div className="flex items-center gap-3">
                   <Button
                     type="primary"
                     htmlType="submit"
-                    className="login-form-button bg-green-500 font-semibold"
+                    className="login-form-button bg-blue-500 font-semibold"
                   >
                     Sign Up
                   </Button>
                   <p>
                     Or{" "}
-                    <a href="/login" className="text-blue-600">
+                    <a href="/login" className="text-green-600">
                       Login now!
                     </a>
                   </p>

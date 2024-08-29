@@ -17,24 +17,25 @@ const BookingManagement = () => {
   return (
     <div>
       <div className="overflow-x-auto">
+        <h1 className="text-center text-2xl font-bold pb-3">Booking Management</h1>
         <table className="table table-zebra">
           {/* head */}
           <thead>
             <tr>
-              <th></th>
+              <th className="hidden md:inline-block">No.</th>
               <th>Facility Name</th>
               <th>Date</th>
-              <th>Start Time</th>
+              <th className="hidden md:inline-block">Start Time</th>
               <th>Details</th>
             </tr>
           </thead>
           <tbody>
             {getSingleBooking?.data?.map((item: any, idx: number) => (
               <tr key={item?._id}>
-                <th>{idx + 1}</th>
+                <th className="hidden md:inline-block">{idx + 1}</th>
                 <td>{item?.facility?.name}</td>
                 <td>{item?.date}</td>
-                <td>{item?.startTime}</td>
+                <td className="hidden md:inline-block">{item?.startTime}</td>
                 <td>
                   <div className="flex gap-1 items-center">
                     <div onClick={() => handleShowDetails(item?._id)}>

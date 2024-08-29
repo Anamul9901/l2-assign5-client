@@ -147,7 +147,7 @@ const BookingPage = () => {
               <div className="bg-slate-200 w-full md:w-1/2 p-2">
                 <h1 className="text-xl font-semibold">{item?.name}</h1>
                 <div className="flex gap-5">
-                  <h1>Prce: {item?.pricePerHour}$</h1>
+                  <h1>Prce: {item?.pricePerHour} tk</h1>
                   <h1>Location: {item?.location}</h1>
                 </div>
               </div>

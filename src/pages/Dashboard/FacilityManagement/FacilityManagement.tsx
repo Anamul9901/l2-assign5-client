@@ -8,7 +8,6 @@ import {
   useUpdateFacilityMutation,
 } from "../../../redux/features/facilitys/facilityApi";
 import moment from "moment";
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AiFillDelete } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
@@ -138,9 +137,12 @@ const FacilityManagement = () => {
   return (
     <div>
       <div className="overflow-x-auto">
+        <h1 className="text-2xl font-bold text-center pb-3">
+          Facility Management
+        </h1>
         <div className="flex justify-end items-end">
           <button
-            className="btn btn-sm"
+            className="btn btn-sm bg-blue-600 text-white hover:text-blue-600"
             onClick={() =>
               (document as any).getElementById("my_modal_2").showModal()
             }
@@ -219,10 +221,10 @@ const FacilityManagement = () => {
           {/* head */}
           <thead>
             <tr>
-              <th>No.</th>
+              <th className="hidden md:inline-block">No.</th>
               <th>Facility Name</th>
               <th>Pric Per Hour</th>
-              <th>Created Date</th>
+              <th className="hidden md:inline-block">Created Date</th>
               <th>Details</th>
             </tr>
           </thead>
@@ -231,18 +233,14 @@ const FacilityManagement = () => {
               ?.filter((item: any) => !item.isDeleted) // Filter out deleted items
               .map((item: any, idx: number) => (
                 <tr key={item?._id}>
-                  <th>{idx + 1}</th>
+                  <th className="hidden md:inline-block">{idx + 1}</th>
                   <td>{item?.name}</td>
                   <td>{item?.pricePerHour}</td>
-                  <td>{moment(new Date(item?.createdAt)).format("Y-MM-DD")}</td>
+                  <td className="hidden md:inline-block">
+                    {moment(new Date(item?.createdAt)).format("Y-MM-DD")}
+                  </td>
                   <td>
                     <div className="flex gap-1 items-center">
-                      <Link
-                        to={`/dashboard/single-facility/${item?._id}`}
-                        className="text-xl"
-                      >
-                        <CiViewList />
-                      </Link>
                       <div>
                         <button
                           onClick={() =>
@@ -250,14 +248,82 @@ const FacilityManagement = () => {
                               .getElementById("my_modal_3")
                               .showModal()
                           }
+                          className="text-xl"
+                        >
+                          <CiViewList
+                            onClick={() => HandleFindUpdatedFacility(item?._id)}
+                          />
+                        </button>
+                        {/* //!! show all data on facility*/}
+                        <dialog id="my_modal_3" className="modal">
+                          <div className="modal-box">
+                            <form method="dialog">
+                              {/* if there is a button in form, it will close the modal */}
+                              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                                ✕
+                              </button>
+                            </form>
+                            <h3 className="font-bold text-lg text-center">
+                              {(updatableFacility[0] as any)?.name}
+                            </h3>
+                            <div>
+                              <div className="flex justify-around">
+                                <div>
+                                  <h1>
+                                    Price Per Hour:{" "}
+                                    {
+                                      (updatableFacility[0] as any)
+                                        ?.pricePerHour
+                                    }{" "}
+                                    tk
+                                  </h1>
+                                  <h1>
+                                    Location:{" "}
+                                    {(updatableFacility[0] as any)?.location}
+                                  </h1>
+                                </div>
+                                <div>
+                                  <h1>
+                                    Created at:{" "}
+                                    {moment(
+                                      new Date(
+                                        (updatableFacility[0] as any)?.createdAt
+                                      )
+                                    ).format("Y-MM-DD")}
+                                  </h1>
+                                  <h1>
+                                    Updated at:{" "}
+                                    {moment(
+                                      new Date(
+                                        (updatableFacility[0] as any)?.updatedAt
+                                      )
+                                    ).format("Y-MM-DD")}
+                                  </h1>
+                                </div>
+                              </div>
+                              <h1 className="flex justify-center pt-4">
+                                {(updatableFacility[0] as any)?.description}
+                              </h1>
+                            </div>
+                          </div>
+                        </dialog>
+                        {/* modal end */}
+                      </div>
+                      <div>
+                        <button
+                          onClick={() =>
+                            (document as any)
+                              .getElementById("my_modal_4")
+                              .showModal()
+                          }
                         >
                           <FaRegEdit
                             onClick={() => HandleFindUpdatedFacility(item?._id)}
-                            className="text-lg text-green-500"
+                            className="text-lg text-blue-500"
                           />
                         </button>
-                        {/* Start update facility Modal  */}
-                        <dialog id="my_modal_3" className="modal">
+                        {/* //!!!Start update facility Modal  */}
+                        <dialog id="my_modal_4" className="modal">
                           <div className="modal-box">
                             <h3 className="font-bold text-lg text-center">
                               Update Facility
@@ -338,12 +404,14 @@ const FacilityManagement = () => {
                         </dialog>
                         {/* End update facility Modal  */}
                       </div>
+                      <div>
                       <button
                         onClick={() => handleDeleteFacility(item?._id)}
                         className="text-xl text-red-500"
                       >
                         <AiFillDelete />
                       </button>
+                      </div>
                     </div>
                   </td>
                 </tr>

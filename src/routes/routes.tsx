@@ -77,14 +77,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "single-facility/:id",
-        element: (
-          <ProtctedRoute role="admin">
-            <SingleFacility />
-          </ProtctedRoute>
-        ),
-      },
-      {
         path: "booking-management",
         element: (
           <ProtctedRoute role="admin">
