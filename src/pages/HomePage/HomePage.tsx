@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import HeroSection from "./HeroSection";
+import FeaturedSection from "./FeaturedSection";
 
 const HomePage = () => {
   return (
@@ -10,10 +11,13 @@ const HomePage = () => {
 
       {/* Hero Section */}
       <section
-        className="bg-cover bg-center h-screen"
-        style={{ backgroundImage: "url('/assets/hero-bg.jpg')" }}
+        className="bg-cover bg-center h-[92vh]"
+        style={{ backgroundImage: "https://i.ibb.co/99pvnRm/banner-bg.jpg" }}
       >
-        <div className=" bg-black bg-opacity-50 h-full flex flex-col justify-center items-center text-white">
+        <h1 className="text-black text-3xl font-bold text-center pt-10">
+          Guide for booking
+        </h1>
+        <div className=" bg-white bg-opacity-50 h-full flex flex-col justify-center items-center text-white">
           <HeroSection />
         </div>
       </section>
@@ -22,11 +26,11 @@ const HomePage = () => {
       <section className="py-16 bg-gray-100">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
-            Featured Facilities
+          Popular Facilities
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="">
             {/* Facility Card */}
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+            {/* <div className="bg-white shadow-lg rounded-lg overflow-hidden">
               <img
                 src="/assets/facility1.jpg"
                 alt="Facility 1"
@@ -44,7 +48,8 @@ const HomePage = () => {
                   View Details
                 </NavLink>
               </div>
-            </div>
+            </div> */}
+            <FeaturedSection />
             {/* Repeat Facility Card as needed */}
           </div>
         </div>
