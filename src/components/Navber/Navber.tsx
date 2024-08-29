@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link, NavLink } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -42,8 +43,8 @@ const Navber = () => {
             isPending
               ? "pending"
               : isActive
-              ? "text-[#050506] underline font-black md:text-xl "
-              : "lg:text-white text-[#09962f] font-bold md:text-xl"
+              ? "text-[#e8ab05] hover:text-blue-600 underline font-bold md:text-lg "
+              : "lg:text-white hover:text-gray-400 text-[#e8ab05] font-bold md:text-lg"
           }
         >
           Home
@@ -57,8 +58,8 @@ const Navber = () => {
             isPending
               ? "pending"
               : isActive
-              ? "text-[#050506] underline font-black md:text-xl "
-              : "lg:text-white text-[#09962f] font-bold md:text-xl"
+              ? "text-[#e8ab05] hover:text-blue-600 underline font-bold md:text-lg "
+              : "lg:text-white hover:text-gray-400 text-[#e8ab05] font-bold md:text-lg"
           }
         >
           Facility
@@ -66,19 +67,68 @@ const Navber = () => {
       </li>
 
       {user && (
-        <li>
+        <li className="relative group">
           <NavLink
             to="/dashboard/home"
             className={({ isActive, isPending }) =>
               isPending
                 ? "pending"
                 : isActive
-                ? "text-[#050506] underline font-black md:text-xl "
-                : "lg:text-white text-[#09962f] font-bold md:text-xl"
+                ? "text-[#e8ab05] hover:text-blue-600 underline font-bold md:text-lg"
+                : "lg:text-white hover:text-gray-400 text-[#e8ab05] font-bold md:text-lg"
             }
           >
             Dashboard
           </NavLink>
+          {/* Dropdown menu */}
+          <ul className="absolute z-10 hidden w-36 group-hover:block bg-white text-black shadow-lg md:rounded-lg rounded-xl  md:mt-8 mt-6">
+            <li>
+              <Link
+                to="/dashboard/home"
+                className="text-sm rounded-none hover:text-[#e8ab05] font-semibold"
+              >
+                Home
+              </Link>
+            </li>
+            {(user as any)?.role == "user" && (
+              <li>
+                <Link
+                  to="/dashboard/my-bookings"
+                  className="text-sm w-full rounded-none hover:text-[#e8ab05] font-semibold"
+                >
+                  My Bookings
+                </Link>
+              </li>
+            )}
+            {(user as any)?.role == "admin" && (
+              <div>
+                <li>
+                  <Link
+                    to="/dashboard/facility-management"
+                    className="text-sm w-full rounded-none hover:text-[#e8ab05] font-semibold"
+                  >
+                    Facility Mana
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/dashboard/booking-management"
+                    className="text-sm w-full rounded-none hover:text-[#e8ab05] font-semibold"
+                  >
+                    Booking Mana
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/dashboard/add-admin"
+                    className="text-sm w-full rounded-none hover:text-[#e8ab05] font-semibold"
+                  >
+                    Add Admin
+                  </Link>
+                </li>
+              </div>
+            )}
+          </ul>
         </li>
       )}
       <li>
@@ -88,8 +138,8 @@ const Navber = () => {
             isPending
               ? "pending"
               : isActive
-              ? "text-[#050506] underline font-black md:text-xl "
-              : "lg:text-white text-[#09962f] font-bold md:text-xl"
+              ? "text-[#e8ab05] hover:text-blue-600 underline font-bold md:text-lg "
+              : "lg:text-white hover:text-gray-400 text-[#e8ab05] font-bold md:text-lg"
           }
         >
           About us
@@ -102,8 +152,8 @@ const Navber = () => {
             isPending
               ? "pending"
               : isActive
-              ? "text-[#050506] underline font-black md:text-xl "
-              : "lg:text-white text-[#09962f] font-bold md:text-xl"
+              ? "text-[#e8ab05] hover:text-blue-600 underline font-bold md:text-lg "
+              : "lg:text-white hover:text-gray-400 text-[#e8ab05] font-bold md:text-lg"
           }
         >
           Contact
@@ -112,7 +162,7 @@ const Navber = () => {
     </>
   );
   return (
-    <div className="bg-[#027b32] text-white">
+    <div className="bg-blue-900 text-white">
       <div className="max-w-7xl mx-auto w-full">
         <div className="navbar   ">
           <div className="navbar-start ">
@@ -143,11 +193,13 @@ const Navber = () => {
             <Link to="/">
               <div className="flex items-center gap-1">
                 <img
-                  className="md:w-10%] w-[10%]"
-                  src={"https://i.ibb.co/Mf5C5N2/pngwing-com-1.png"}
+                  className="md:w-10%] w-[50%]"
+                  src={
+                    "https://i.ibb.co/LxLzCSH/Picsart-24-08-29-12-34-16-998.png"
+                  }
                   alt=""
                 />
-                <h2 className="font-bold md:text-xl">Tree Oasis</h2>
+                {/* <h2 className="font-bold md:text-xl">Sport Zone</h2> */}
               </div>
             </Link>
           </div>
@@ -163,12 +215,7 @@ const Navber = () => {
                       tabIndex={0}
                       className="btn btn-ghost btn-circle avatar"
                     >
-                      <div className="w-10 rounded-full">
-                        <img
-                          src="https://i.ibb.co/bd741Kc/pngwing-com-46.png"
-                          alt=""
-                        />
-                      </div>
+                      <h1>{(user as any)?.name}</h1>
                     </label>
                   </div>
                   <div className="">
