@@ -14,7 +14,7 @@ const MyBookings = () => {
   const { data: getSingleBooking } = useGetSingleBookingQuery(undefined);
   const [cancelBooking] = useCancelBookingMutation();
   const [modalData, setModalData] = useState([]);
-  
+
   const handleShowDetails = (id: string) => {
     const filterData = getSingleBooking?.data?.filter(
       (item: any) => item?._id == id
@@ -98,7 +98,8 @@ const MyBookings = () => {
                                 {
                                   (modalData[0] as any as any)?.facility
                                     ?.pricePerHour
-                                } tk
+                                }{" "}
+                                tk
                               </h1>
                               <h1>
                                 Payable Amount:{" "}

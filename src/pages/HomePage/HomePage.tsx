@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import HeroSection from "./HeroSection";
 import FeaturedSection from "./FeaturedSection";
 import CustomerTestimonials from "./CustomerTestimonials";
-import GoToTop from "../../components/GoToTop/GoToTop";
 
 const HomePage = () => {
   return (
@@ -86,7 +85,7 @@ const HomePage = () => {
         </div>
       </section>
       <div>
-        <GoToTop />
+       
       </div>
     </div>
   );
