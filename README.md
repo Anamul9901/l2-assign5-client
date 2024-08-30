@@ -3,9 +3,9 @@
 This README file provides instructions for setting up and running the application locally.
 
 ## Live URL
- ```url
+
    https://l2-assign5-client.vercel.app/
-   ```
+   
 ## Features
 
 ### Landing Page
