@@ -9,15 +9,23 @@ import { CiViewList } from "react-icons/ci";
 import { TbClockCancel } from "react-icons/tb";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { useAppSelector } from "../../../redux/hooks";
+import { useCurrentToken } from "../../../redux/features/auth/authSlice";
+import { verifyToken } from "../../../utils/verifyToken";
 
 const MyBookings = () => {
   const { data: getSingleBooking } = useGetSingleBookingQuery(undefined);
   const [cancelBooking] = useCancelBookingMutation();
   const [modalData, setModalData] = useState([]);
+  const token = useAppSelector(useCurrentToken);
+  let user2: any;
+  if (token) {
+    user2 = verifyToken(token);
+  }
 
   const handleShowDetails = (id: string) => {
     const filterData = getSingleBooking?.data?.filter(
-      (item: any) => item?._id == id
+      (item: any) => item?._id == id && item?.user == user2?.userId
     );
     setModalData(filterData);
   };

@@ -8,8 +8,8 @@ import { verifyToken } from "../../utils/verifyToken";
 
 const Navber = () => {
   const dispatch = useAppDispatch();
-  const token = useAppSelector(useCurrentToken);
   const navigate = useNavigate();
+  const token = useAppSelector(useCurrentToken);
   let user;
   if (token) {
     user = verifyToken(token);
