@@ -50,7 +50,7 @@ const FacilityManagement = () => {
       Swal.fire({
         position: "top-end",
         icon: "success",
-        title: `${(res as any)?.data?.messaage}`,
+        title: `${(res as any)?.data?.message}`,
         showConfirmButton: false,
         timer: 1500,
       });
@@ -117,7 +117,7 @@ const FacilityManagement = () => {
       Swal.fire({
         position: "top-end",
         icon: "success",
-        title: `${(res as any)?.data?.messaage}`,
+        title: `${(res as any)?.data?.message}`,
         showConfirmButton: false,
         timer: 1500,
       });
@@ -126,7 +126,7 @@ const FacilityManagement = () => {
       Swal.fire({
         position: "top-end",
         icon: "error",
-        title: `${(res as any)?.error?.data?.messaage}`,
+        title: `${(res as any)?.error?.data?.message}`,
         showConfirmButton: false,
         timer: 1500,
       });
